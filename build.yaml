@@ -1,0 +1,8 @@
+builders:
+  rest_api:
+    import: "package:caching_impl_generator/builder.dart"
+    builder_factories: [ "cachingImplBuilder" ]
+    build_extensions: { ".dart": [ "caching_impl.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]

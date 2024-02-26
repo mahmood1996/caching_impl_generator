@@ -1,0 +1,21 @@
+(Done) throws "Source must be annotated with GenerateForCaching"
+(Done) throws "Classes only can be annotated with GenerateForCaching" on annotating functions, or variables.
+(Done) generate Mixin prefixed with _$ and suffixed with "Mixin".
+(Done) generate async box method by storageKey.
+
+# for Methods annotated with @Get(...)
+(Done) throws "Get.storageKey must be non empty string"
+(Done) throws "Methods annotated with Get must not have parameters"
+(Done) throws "Methods annotated with Get must return Future, or FutureOr"
+(Done) throws "Methods annotated with Get must return a value not void"
+(Done) generate get method that returns Get.fromJson in case it is not a null.
+(Done) generate get method that returns json.decode(storageData) in case ReturnType is a DartDefinedType.
+(Done) generate get method that returns with ReturnType.fromJson(storageData) in case it is not a DartDefinedType.
+
+# for Methods annotated with @Save(...)
+(Done) throws "Save.storageKey must be non empty string"
+(Done) throws "Methods annotated with Save must have one parameter for input"
+(Done) throws "Methods annotated with Save must be void, Future<void>, or FutureOr<void>"
+(Done) generate save method with Save.toJson in case it is not a null.
+(Done) generate save method that encodes input with json.encode(input) in case input is a DartDefinedType.
+(Done) generate save method that encodes input with json.encode(input.toJson()) in case it is not a DartDefinedType.
