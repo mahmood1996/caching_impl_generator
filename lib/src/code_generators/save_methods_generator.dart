@@ -46,7 +46,8 @@ final class SaveMethodsGenerator implements CodeGenerator<ClassElement> {
     return switch (toJson) {
       (null) => [
           'json.encode(${methodParam.displayName}',
-          if (!Utils.isDartDefinedType(methodParam.type)) '.toJson()',
+          if (!Utils.isDartDefinedType(methodParam.type))
+            '${Utils.isNullable(methodParam.type) ? '?' : ''}.toJson()',
           ')',
         ].join(),
       (_) => [

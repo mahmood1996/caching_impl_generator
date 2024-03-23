@@ -23,7 +23,7 @@ abstract final class Utils {
 
   static bool _isAllArgumentsOfVoidType(InterfaceType type) {
     if (type.typeArguments.isEmpty) return false;
-    return type.typeArguments.whereType<VoidType>().isNotEmpty;
+    return !type.typeArguments.any((e) => e is! VoidType);
   }
 
   static DartObject? getFirstAnnotationOf<AnnotationType>(Element element) {
@@ -78,7 +78,8 @@ abstract final class Utils {
         type.isDartCoreFunction ||
         type.isDartCoreType ||
         type.isDartCoreSymbol ||
-        type is DynamicType;
+        type is DynamicType ||
+        type is VoidType;
   }
 
   static String getFunctionReferenceAsString(ExecutableElement element) {
@@ -94,4 +95,8 @@ abstract final class Utils {
   static String getAnnotationName<AnnotationType>() {
     return AnnotationType.toString().replaceAll(RegExp(r'<.+>'), '');
   }
+
+  static String getTypeName(DartType type) => '$type'.replaceAll('?', '');
+
+  static bool isNullable(DartType type) => '$type'.contains('?');
 }

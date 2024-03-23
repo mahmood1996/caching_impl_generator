@@ -37,12 +37,15 @@ final class GetMethodsGenerator implements CodeGenerator<ClassElement> {
       'final box = await _box(\'${_getStorageKeyValueOn(element)}\');\n',
       'if (!box.containsKey(0)) throw CacheException();\n',
       'final storedData = json.decode(box.get(0)!);\n',
+      if (Utils.isNullable(futureArgumentType))
+        'if (storedData == null) return null;\n',
       'return ${switch ((
         fromJson,
         Utils.isDartDefinedType(futureArgumentType)
       )) {
         (null, true) => 'storedData',
-        (null, false) => '$futureArgumentType.fromJson(storedData)',
+        (null, false) =>
+          '${Utils.getTypeName(futureArgumentType)}.fromJson(storedData)',
         (ExecutableElement e, _) =>
           '${Utils.getFunctionReferenceAsString(e)}(storedData)',
       }};\n',

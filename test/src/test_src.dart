@@ -56,12 +56,24 @@ final class Product {
   '    return GenerateMixin._fromJson(storedData);\n'
   '  }\n'
   '\n'
+  '  Future<Product?> getNullableNonDartDefinedType() async {\n'
+  '    final box = await _box(\'key\');\n'
+  '    if (!box.containsKey(0)) throw CacheException();\n'
+  '    final storedData = json.decode(box.get(0)!);\n'
+  '    if (storedData == null) return null;\n'
+  '    return Product.fromJson(storedData);\n'
+  '  }\n'
+  '\n'
   '  Future<void> saveDartDefinedType(int param) async {\n'
   '    await (await _box(\'key\')).put(0, json.encode(param));\n'
   '  }\n'
   '\n'
   '  Future<void> saveNonDartDefinedType(Product param) async {\n'
   '    await (await _box(\'key\')).put(0, json.encode(param.toJson()));\n'
+  '  }\n'
+  '\n'
+  '  Future<void> saveNullableNonDartDefinedType(Product? param) async {\n'
+  '    await (await _box(\'key\')).put(0, json.encode(param?.toJson()));\n'
   '  }\n'
   '\n'
   '  Future<void> saveObjectWithToJson(Product param) async {\n'
@@ -84,11 +96,17 @@ abstract class GenerateMixin {
   @Get<Product>(storageKey: 'key', fromJson: _fromJson)
   Future<Product> getObjectWithFromJson();
 
+  @Get<Product?>(storageKey: 'key')
+  Future<Product?> getNullableNonDartDefinedType();
+
   @Save(storageKey: 'key')
   Future<void> saveDartDefinedType(int param);
 
   @Save(storageKey: 'key')
   Future<void> saveNonDartDefinedType(Product param);
+
+  @Save(storageKey: 'key')
+  Future<void> saveNullableNonDartDefinedType(Product? param);
 
   @Save<Product>(storageKey: 'key', toJson: _toJson)
   Future<void> saveObjectWithToJson(Product param);

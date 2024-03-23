@@ -19,3 +19,4 @@
 (Done) generate save method with Save.toJson in case it is not a null.
 (Done) generate save method that encodes input with json.encode(input) in case input is a DartDefinedType.
 (Done) generate save method that encodes input with json.encode(input.toJson()) in case it is not a DartDefinedType.
+
