@@ -77,7 +77,7 @@ final class Product {
   '  }\n'
   '\n'
   '  Future<void> saveObjectWithToJson(Product param) async {\n'
-  '    await (await _box(\'key\')).put(0, GenerateMixin._toJson(param));\n'
+  '    await (await _box(\'key\')).put(0, json.encode(GenerateMixin._toJson(param)));\n'
   '  }\n'
   '\n'
   '  Future<Box<String>> _box(String storageKey) =>\n'

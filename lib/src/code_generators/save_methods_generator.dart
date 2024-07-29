@@ -31,9 +31,9 @@ final class SaveMethodsGenerator implements CodeGenerator<ClassElement> {
         .toStringValue();
 
     return (StringBuffer('await (await _box(\'$storageKey\'))'
-            '.put(0, ')
+            '.put(0, json.encode(')
           ..write(_buildJsonEncodingImplForSaveMethod(element))
-          ..write(');\n'))
+          ..write('));\n'))
         .toString();
   }
 
@@ -45,10 +45,9 @@ final class SaveMethodsGenerator implements CodeGenerator<ClassElement> {
 
     return switch (toJson) {
       (null) => [
-          'json.encode(${methodParam.displayName}',
+          methodParam.displayName,
           if (!Utils.isDartDefinedType(methodParam.type))
             '${Utils.isNullable(methodParam.type) ? '?' : ''}.toJson()',
-          ')',
         ].join(),
       (_) => [
           Utils.getFunctionReferenceAsString(toJson),
